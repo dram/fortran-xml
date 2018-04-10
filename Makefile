@@ -10,7 +10,7 @@ run: build
 	@${PROGRAM}
 
 %.o: %.f90
-	${CC} -Wall -J ${MODULES_DIR} -o $@ -c $^
+	${CC} -std=f2008 -Wall -J ${MODULES_DIR} -o $@ -c $^
 
 ${PROGRAM}: ${OBJECT_FILES}
 	${CC} -o $@ $^ -lgfortran -lxml2
