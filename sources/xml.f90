@@ -1,5 +1,4 @@
 module xml
-  use iso_c_binding
   implicit none
 
   interface
