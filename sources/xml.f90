@@ -3,6 +3,18 @@ module xml
   implicit none
 
   interface
+     !! entities
+     !! ********
+     function xml_encode_entities_reentrant(doc, input) result(output) &
+          bind(c, name="xmlEncodeEntitiesReentrant")
+       use iso_c_binding, only: c_char, c_ptr
+       type(c_ptr), value :: doc
+       character(kind=c_char), intent(in) :: input (*)
+       type(c_ptr) :: output
+     end function xml_encode_entities_reentrant
+
+     !! tree
+     !! ****
      subroutine xml_doc_dump_memory(doc, memory, size) &
           bind(c, name="xmlDocDumpMemory")
        use iso_c_binding, only: c_int, c_ptr
