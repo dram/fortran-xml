@@ -6,16 +6,19 @@ program main
   block
     use xml
 
-    integer(c_int)                    :: size
-    character(:, c_char), allocatable :: data
-    character(kind=c_char), pointer   :: fptr (:)
-    type(c_ptr)                       :: doc, node, cptr, root
+    character(:, c_char),   allocatable, target :: contents
+    character(:, c_char),   allocatable         :: data
+    type     (c_ptr)                            :: doc, node, cptr, root
+    character(kind=c_char), pointer             :: fptr (:)
+    integer  (c_int)                            :: size
+
+    contents = "contents" // c_null_char
 
     doc = xml_new_doc("1.0" // c_null_char)
 
     root = xml_new_node(c_null_ptr, "root" // c_null_char)
     node = xml_new_child( &
-         root, c_null_ptr, "node" // c_null_char, "contents" // c_null_char)
+         root, c_null_ptr, "node" // c_null_char, c_loc(contents))
     node = xml_set_root_element(doc, root)
 
     call xml_doc_dump_memory(doc, cptr, size)
