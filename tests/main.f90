@@ -26,7 +26,5 @@ program main
     call xml_free(cptr)
 
     print *, data
-
-    deallocate(data)
   end block
 end program main
