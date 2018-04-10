@@ -45,8 +45,8 @@ module xml
      function xml_new_child(parent, namespace, name, content) result(node) &
           bind(c, name="xmlNewChild")
        use iso_c_binding, only: c_char, c_ptr
-       type(c_ptr), value :: parent, namespace
-       character(kind=c_char), intent(in) :: name (*), content (*)
+       type(c_ptr), value :: parent, namespace, content
+       character(kind=c_char), intent(in) :: name (*)
        type(c_ptr) :: node
      end function xml_new_child
 
