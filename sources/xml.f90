@@ -22,6 +22,23 @@ module xml
        integer(c_int), intent(out) :: size
      end subroutine xml_doc_dump_memory
 
+     function xml_save_file(filename, doc) result(bytes) &
+          bind(c, name="xmlSaveFile")
+       use iso_c_binding, only: c_char, c_int, c_ptr
+       character(kind=c_char), intent(in) :: filename (*)
+       type(c_ptr), value :: doc
+       integer(c_int) :: bytes
+     end function xml_save_file
+
+     function xml_save_file_enc(filename, doc, encoding) result(bytes) &
+          bind(c, name="xmlSaveFileEnc")
+       use iso_c_binding, only: c_char, c_int, c_ptr
+       character(kind=c_char), intent(in) :: filename (*)
+       type(c_ptr), value :: doc
+       character(kind=c_char), intent(in) :: encoding (*)
+       integer(c_int) :: bytes
+     end function xml_save_file_enc
+
      ! FIXME:
      !   should bind to `xmlFree` (a function pointer), maybe:
      !     type(c_funptr), bind(c, name="xmlFree") :: xml_free_c_funptr
@@ -61,13 +78,13 @@ module xml
        type(c_ptr) :: node
      end function xml_new_child
 
-     function xml_save_file(filename, doc) result(bytes) &
-          bind(c, name="xmlSaveFile")
+     function xml_parse_memory(buffer, size) result(doc) &
+          bind(c, name="xmlParseMemory")
        use iso_c_binding, only: c_char, c_int, c_ptr
-       character(kind=c_char), intent(in) :: filename (*)
-       type(c_ptr), value :: doc
-       integer(c_int) :: bytes
-     end function xml_save_file
+       type   (c_ptr), value :: buffer
+       integer(c_int), value :: size
+       type   (c_ptr)        :: doc
+     end function xml_parse_memory
 
      function xml_set_root_element(doc, root) result(old) &
           bind(c, name="xmlDocSetRootElement")
