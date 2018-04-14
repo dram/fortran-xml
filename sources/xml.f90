@@ -4,12 +4,12 @@ module xml
   interface
      !! entities
      !! ********
-     function xml_encode_entities_reentrant(doc, input) result(output) &
+     function xml_encode_entities_reentrant(doc, input) &
           bind(c, name="xmlEncodeEntitiesReentrant")
        use iso_c_binding, only: c_char, c_ptr
        type(c_ptr), value :: doc
        character(kind=c_char), intent(in) :: input (*)
-       type(c_ptr) :: output
+       type(c_ptr) :: xml_encode_entities_reentrant
      end function xml_encode_entities_reentrant
 
      !! tree
@@ -22,21 +22,21 @@ module xml
        integer(c_int), intent(out) :: size
      end subroutine xml_doc_dump_memory
 
-     function xml_save_file(filename, doc) result(bytes) &
+     function xml_save_file(filename, doc) &
           bind(c, name="xmlSaveFile")
        use iso_c_binding, only: c_char, c_int, c_ptr
        character(kind=c_char), intent(in) :: filename (*)
        type(c_ptr), value :: doc
-       integer(c_int) :: bytes
+       integer(c_int) :: xml_save_file
      end function xml_save_file
 
-     function xml_save_file_enc(filename, doc, encoding) result(bytes) &
+     function xml_save_file_enc(filename, doc, encoding) &
           bind(c, name="xmlSaveFileEnc")
        use iso_c_binding, only: c_char, c_int, c_ptr
        character(kind=c_char), intent(in) :: filename (*)
        type(c_ptr), value :: doc
        character(kind=c_char), intent(in) :: encoding (*)
-       integer(c_int) :: bytes
+       integer(c_int) :: xml_save_file_enc
      end function xml_save_file_enc
 
      ! FIXME:
@@ -55,42 +55,42 @@ module xml
        type(c_ptr), value :: doc
      end subroutine xml_free_doc
 
-     function xml_new_doc(version) result(doc) &
+     function xml_new_doc(version) &
           bind(c, name="xmlNewDoc")
        use iso_c_binding, only: c_char, c_ptr
        character(kind=c_char), intent(in) :: version (*)
-       type(c_ptr) :: doc
+       type(c_ptr) :: xml_new_doc
      end function xml_new_doc
 
-     function xml_new_node(namespace, name) result(node) &
+     function xml_new_node(namespace, name) &
           bind(c, name="xmlNewNode")
        use iso_c_binding, only: c_char, c_ptr
        type(c_ptr), value :: namespace
        character(kind=c_char), intent(in) :: name (*)
-       type(c_ptr) :: node
+       type(c_ptr) :: xml_new_node
      end function xml_new_node
 
-     function xml_new_child(parent, namespace, name, content) result(node) &
+     function xml_new_child(parent, namespace, name, content) &
           bind(c, name="xmlNewChild")
        use iso_c_binding, only: c_char, c_ptr
        type(c_ptr), value :: parent, namespace, content
        character(kind=c_char), intent(in) :: name (*)
-       type(c_ptr) :: node
+       type(c_ptr) :: xml_new_child
      end function xml_new_child
 
-     function xml_parse_memory(buffer, size) result(doc) &
+     function xml_parse_memory(buffer, size) &
           bind(c, name="xmlParseMemory")
        use iso_c_binding, only: c_char, c_int, c_ptr
        type   (c_ptr), value :: buffer
        integer(c_int), value :: size
-       type   (c_ptr)        :: doc
+       type   (c_ptr)        :: xml_parse_memory
      end function xml_parse_memory
 
-     function xml_set_root_element(doc, root) result(old) &
+     function xml_set_root_element(doc, root) &
           bind(c, name="xmlDocSetRootElement")
        use iso_c_binding, only: c_ptr
        type(c_ptr), value :: doc, root
-       type(c_ptr) :: old
+       type(c_ptr) :: xml_set_root_element
      end function xml_set_root_element
   end interface
 end module xml
