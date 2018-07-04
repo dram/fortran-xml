@@ -11,7 +11,7 @@ program main
     character, pointer :: fptr (:)
     integer size
 
-    contents = "contents" // c_null_char
+    allocate (contents, source = "contents" // c_null_char)
 
     version = "1.0" // c_null_char
     doc = xml_new_doc(c_loc(version))
