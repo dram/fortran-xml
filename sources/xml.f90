@@ -80,11 +80,11 @@ module xml
        type(c_ptr) xml_parse_memory
      end function xml_parse_memory
 
-     function xml_set_root_element(doc, root) &
+     function xml_doc_set_root_element(doc, root) &
           bind(c, name="xmlDocSetRootElement")
        use iso_c_binding, only: c_ptr
        type(c_ptr), value :: doc, root
-       type(c_ptr) xml_set_root_element
-     end function xml_set_root_element
+       type(c_ptr) xml_doc_set_root_element
+     end function xml_doc_set_root_element
   end interface
 end module xml

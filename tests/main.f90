@@ -20,7 +20,7 @@ program main
     root = xml_new_node(c_null_ptr, c_loc(tag))
     tag = "node" // c_null_char
     node = xml_new_child(root, c_null_ptr, c_loc(tag), c_loc(contents))
-    node = xml_set_root_element(doc, root)
+    node = xml_doc_set_root_element(doc, root)
 
     call xml_doc_dump_memory(doc, cptr, size)
     call xml_free_doc(doc)
